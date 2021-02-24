@@ -1,0 +1,544 @@
+    1  setenforce 0
+    2  sestatus
+    3  sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+    4  clear
+    5  systemctl stop firewalld && systemctl disable firewalld
+    6  systemctl stop NetworkManager && systemctl disable NetworkManager
+    7  swapoff -a && sed -i '/ swap / s/^/#/' /etc/fstab
+    8  xxxxxxxxxx?cat <<EOF >  /etc/sysctl.d/k8s.confnet.bridge.bridge-nf-call-ip6tables = 1net.bridge.bridge-nf-call-iptables = 1EOF
+    9  exit
+   10  ()
+   11  cat <<EOF >  /etc/sysctl.d/k8s.conf
+   12  net.bridge.bridge-nf-call-ip6tables = 1
+   13  net.bridge.bridge-nf-call-iptables = 1
+   14  EOF
+   15  sysctl --system
+   16  cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+   17  [kubernetes]
+   18  name=Kubernetes
+   19  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+   20  enabled=1
+   21  gpgcheck=1
+   22  repo_gpgcheck=1
+   23  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+   24  EOF
+   25  yum update
+   26  vi /etc/hosts
+   27  clear
+   28  yum install -y yum-utils device-mapper-persistent-data lvm2 
+   29  yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+   30  yum update && yum install docker-ce
+   31  useradd dockeradmin
+   32  passwd dockeradmin
+   33  curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   34  chmod +x /usr/local/bin/docker-compose
+   35  ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+   36  docker-compose -version 
+   37  usermod -aG docker dockeradmin
+   38  systemctl enable --now docker && systemctl start docker
+   39  clear
+   40  curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-
+   41  chmod +x /usr/local/bin/docker-compose
+   42  ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+   43  docker run hello-world
+   44  yum install -y --disableexcludes=kubernetes kubeadm-1.15.5-0.x86_64 kubectl-1.15.5-0.x86_64 kubelet-1.15.5-0.x86_64
+   45  systemctl enable --now kubelet
+   46  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+   47  mkdir -p $HOME/.kube
+   48  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   49  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   50  kubectl get pods --all-namespaces
+   51  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+   52  kubectl get pods --all-namespaces
+   53  kubestl get nodes
+   54  kubectl get nodes
+   55  systemctl enable --now kubelet
+   56  kubectl get nodes
+   57  kubeadm reset
+   58  kubectl get nodes
+   59  kubectl get pods --all-namespaces
+   60  clear
+   61  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+   62  kubectl get pods --all-namespaces
+   63  kubeadm reset
+   64  kubectl get pods --all-namespaces
+   65  kubeadm reset
+   66  history
+   67  clear
+   68  kubectl get pods --all-namespaces
+   69  kubectl get nodes
+   70  kubeadm join 192.168.56.10:6443 --token 2uyblq.3s2baw46dz66gnqo     --discovery-token-ca-cert-hash sha256:2e12aa34e51ba58925729dd2a3724dad253e937e79122d1bfe96ae0ec1b5d311
+   71  curl -O https://docs.projectcalico.org/v3.8/manifests/calico.yaml 
+   72  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+   73  clear
+   74  kubectl get pods --all-namespaces
+   75  mkdir -p $HOME/.kube
+   76  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   77  kubectl get pods --all-namespaces
+   78  systemctl enable --now kubelet
+   79     mkdir $HOME/.kube
+   80     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   81  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   82  kubectl get pods --all-namespaces
+   83  sudo systemctl enable docker.service
+   84  sudo service kubelet restart
+   85  kubectl get pods --all-namespaces
+   86  kubectl get nodes
+   87  sudo kubeadm reset
+   88  sudo swapoff -a
+   89  sudo kubeadm init --pod-network-cidr=10.244.10.0/16 --kubernetes- 
+   90    version "1.18.3"
+   91  sudo rm -rf /home/cm/.kube
+   92  mkdir -p $HOME/.kube
+   93  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/confi
+   94  mkdir -p $HOME/.kube
+   95  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   96  kubectl get pods --all-namespaces
+   97  systemctl enable --now kubelet
+   98  clear
+   99  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+  100  mkdir -p $HOME/.kube
+  101  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  102  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+  103  kubectl get pods --all-namespaces
+  104  kubectl get nodes
+  105  kubectl get pods --all-namespaces
+  106  clear
+  107  kubectl get pods --all-namespaces
+  108  mkdir -p $HOME/.kube
+  109  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  110  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  111  kubectl get pods --all-namespaces
+  112  mkdir -p $HOME/.kube
+  113  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  114  clear
+  115  histmkdir -p $HOME/.kube
+  116  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  117  clear
+  118  mkdir -p $HOME/.kube
+  119  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  120  mkdir -p $HOME/.kube
+  121  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  122  kubectl get pods
+  123  systemctl enable --now kubelet
+  124  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+  125  kubeadm reset
+  126  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+  127  mkdir -p $HOME/.kube
+  128  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  129  kubectl get pods
+  130  kubectl get pods --all-namespaces
+  131  export KUBECONFIG=/etc/kubernetes/admin.conf
+  132  systemctl enable --now kubelet
+  133  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+  134  kubeadm reset
+  135  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+  136  mkdir -p $HOME/.kube
+  137  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  138  kubectl get pods --all-namespaces
+  139  clear
+  140  kubectl get pods --all-namespaces
+  141  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+  142  kubectl get pods --all-namespaces
+  143  kubectl get nods
+  144  kubectl get nodes
+  145  clear
+  146  kubectl get nodes
+  147  kubectl version
+  148  kubectl get pods --all-namespaces
+  149  kubectl describe pod calico-node-g569t
+  150  kubectl get pods --all-namespaces
+  151  kubectl describe pod calico-node-g569t
+  152  kubectl describe pod calico-node-g569t -n kube-system
+  153  clear
+  154  kubectl get pods --all-namespaces
+  155  kubectl get all -n kube-system
+  156  kubectl delete deployments calico-node
+  157  kubectl delete deployments calico-node -n kube-system
+  158  clear
+  159  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+  160  kubectl get pods --all-namespaces
+  161  kubectl delete pod calico-node-g569t -n kube-system
+  162  clear
+  163  kubectl get pods --all-namespaces
+  164  kubectl delete pod calico-node-s25xq -n kube-system
+  165  kubectl get pods --all-namespaces
+  166  clear
+  167  kubectl get pods --all-namespaces
+  168  kubectl describe pod calico-node-tj47
+  169  kubectl describe pod calico-node-tj47 -n kube-system
+  170  kubectl get pods --all-namespaces
+  171  kubectl describe pod calico-node-tj47 -n kube-system
+  172  kubectl get pods --all-namespaces
+  173  kubectl get nodes
+  174  clear
+  175  kubectl get nodes
+  176  kubectl version
+  177  kubectl get nodes
+  178  systemctl enable --now kubelet
+  179  kubectl get nodes
+  180  kubectl get pods --all-namespaces
+  181  kubectl get nodes
+  182  kubeadm reset
+  183  clear
+  184  kubeadm init --pod-network-cidr=10.96.0.0/16 --apiserver-advertise-address=192.168.56.10
+  185  rm -rf $HOME/.kube
+  186  mkdir -p $HOME/.kube
+  187  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  188  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  189  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+  190  kubectl get pods --all-namespaces
+  191  clear
+  192  kubectl get nodes
+  193  kubectl get pods 
+  194  kubectl get pods --all-namespaces
+  195  history
+  196  kubectl get pods --all-namespaces
+  197  kubectl apply -f https://raw.githubusercontent.com/kubetm/kubetm.github.io/master/sample/practice/appendix/gcp-kubernetes-dashboard.yaml
+  198  clear
+  199  kubectl get pods
+  200  kubectl get nodes
+  201  kubectl get pods --all-namespaces
+  202  kubectl get nodes --namespace kube-system
+  203  kubectl get pods --namespace kube-system
+  204  nohup kubectl proxy --port=8000 --address=192.168.56.14 --accept-hosts='^*$' >/dev/null 2>&1 &
+  205  kubectl get pods --namespace kube-system
+  206  kubectl run nginx-test --image=nginx --port 80 --generator=run-pod/v1
+  207  clear
+  208  kubectl get pods
+  209  kubectl get pods -o wide
+  210  kubectl expose pod nginx-test
+  211  kubectl get services
+  212  kubectl edit service nginx-test
+  213  kubectl get services
+  214  curl -X GET http://127.0.0.1:30926
+  215  yum install -y net-tools
+  216  netstat -ntpl
+  217  kubectl get svc
+  218  mkdir -p $HOME/.kube
+  219  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  220  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  221  kubectl get nodes
+  222  kubectl get pods
+  223  kubectl get services
+  224  kubectl destroy nginx-test
+  225  kubectl delete nginx-test
+  226  clear
+  227  kubectl delete node/nginx-test
+  228  kubectl delete pod/nginx-test
+  229  kubectl get services
+  230  kubectl get pods
+  231  kubectl delete service/nginx-test
+  232  kubectl get services
+  233  kubectl get pods
+  234  ubectl run nginx-test --image=nginx --port 80 --generator=run-pod/v1
+  235  kubectl get pods
+  236  clear
+  237  kubectl get pods
+  238  kubectl run nginx-test --image=nginx --port 80 --generator=run-pod/v1
+  239  kubectl expose pod nginx-test 
+  240  kubectl get services
+  241  kubectl edit service nginx-test
+  242  sudo kubectl edit service nginx-test
+  243  kubectl edit service nginx-test
+  244  http://192.168.56.10:30926/
+  245  kubectl run nginx-test --image=nginx --port 80 --generator=run-pod/v1
+  246  sudo kubectl edit service nginx-test
+  247  clear
+  248  kubectl get pods
+  249  kubectl get pods -o wide
+  250  clear
+  251  kubectl get pods -o wide
+  252  kubectl describe pod nginx-test
+  253  clear
+  254  kubectl describe pod nginx-test
+  255  kubectl expose pod nginx-test 
+  256  kubectl get services
+  257  clear
+  258  kubectl get services -o wids
+  259  kubectl get services -o wide
+  260  kubectl edit service ngin-test
+  261  kubectl edit service nginx-test
+  262  http://192.168.56.11:30926
+  263  kubectl get services -o wide
+  264  curl -X GET 127.0.0.1:31731
+  265  curl -X GET 127.0.0.1:60000
+  266  kubectl get pods -o wide
+  267  kubectl get nodes
+  268  kubectl get svc
+  269  kubectl get pods
+  270  clear
+  271  kubectl get pods
+  272  kubectl get pods -n kube-system
+  273  clear
+  274  kubectl get pods -o -wide -n kube-system
+  275  kubectl get pods -o wide -n kube-system
+  276  nohup kubectl proxy --port=8000 --address=192.168.56.14 --accept-hosts='^*$' >/dev/null 2>&1 &
+  277  clear
+  278  nohup kubectl proxy --port=8000 --address=192.168.56.14 --accept-hosts='^*$' >/dev/null 2>&1 &
+  279  nohup kubectl proxy --port=8000 --address=192.168.166.1 --accept-hosts='^*$' >/dev/null 2>&1 &
+  280  clear
+  281  nohup kubectl proxy --port=8000 --address=192.168.166.1 --accept-hosts='^*$' >/dev/null 2>&1 &
+  282  kubectl get pods -o wide -n kube-system
+  283  nohup kubectl proxy --port=8000 --address=192.168.166.136 --accept-hosts='^*$' >/dev/null 2>&1 &
+  284  kubectl apply -f kubernetes-dashboard.yaml
+  285  kubectl logs -n kube-system calico-node-169qn
+  286  clear
+  287  history
+  288  kubectl get pods -o wide -n kube-system
+  289  nohup kubectl proxy --port=8000 --address=192.168.166.136 --accept-hosts='^*$' >/dev/null 2>&1 &
+  290  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+  291  kubectl proxy --port=8080 --address='0.0.0.0' --disable-filter=true &
+  292  nohup kubectl proxy --port=8000 --address=192.168.166.136 --accept-hosts='^*$' >/dev/null 2>&1 &
+  293  nohup kubectl proxy --port=8000 --address=192.168.56.10 --accept-hosts='^*$' >/dev/null 2>&1 &
+  294  kubectl apply -f https://raw.githubusercontent.com/kubetm/kubetm.github.io/master/sample/practice/appendix/gcp-kubernetes-dashboard.yaml
+  295  kubectl get pods -o wide -n kube-system
+  296  nohup kubectl proxy --port=8000 --address=192.168.104.4 --accept-hosts='^*$' >/dev/null 2>&1 &
+  297  nohup kubectl proxy --port=8000 --address=192.168.56.10 --accept-hosts='^*$' >/dev/null 2>&1 &
+  298  clear
+  299  nohup kubectl proxy --port=8000 --address=192.168.56.10 --accept-hosts='^*$' >/dev/null 2>&1 &
+  300  clear
+  301  kubectl get pods
+  302  kubectl exec -it nginx-test /bin/bash
+  303  kubectl get pods nginx-test -o wide
+  304  kubectl get pods nginx-test -o yaml > nginx_pod.yml
+  305  ls -al
+  306  clear
+  307  vi nginx_pod.yaml
+  308  kubectl get service nginx-test
+  309  kubectl get service nginx-test -o yaml > nginx-service.yml
+  310  ls -l yml
+  311  ls -l *.yml
+  312  pwd
+  313  mkdir node_project
+  314  cd node_project
+  315  ll
+  316  vi hello.js
+  317  ls -l
+  318  cat hello.js
+  319  node hello.js
+  320  yum install epel-release
+  321  yum install gcc-c++ make
+  322  curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+  323  yum install nodejs
+  324  node hello.js
+  325  vi hello.js
+  326  node hello.js
+  327  cat hello.js
+  328  vi hello.js
+  329  cat hello.js
+  330  clear
+  331  cat hello.js
+  332  node hello.js
+  333  cat hello.js
+  334  lsof -i :8000
+  335  ls -i :8000
+  336  clear
+  337  netstat -ntlp | grep :8000
+  338  vi hello.js
+  339  node hello.js
+  340  netstat -ntlp | grep :8080
+  341  node -v
+  342  ll
+  343  node hello.js
+  344  vi hello.js
+  345  node hello.js
+  346  clear
+  347  pwd
+  348  ls -l
+  349  vi hello.js
+  350  vi Dockerfile
+  351  docker build -b 6democratickim9/hello .
+  352  docker build -t 6democratickim9/hello .
+  353  docker images
+  354  clear
+  355  docker images
+  356  docker run -d -p 8001:8000 6democratickim9/hello
+  357  docker exec -it /bin/bash
+  358  docker exec 8f9336 -it /bin/bash
+  359  docker container ls
+  360  clear
+  361  docker container ls
+  362  docker images
+  363  clear
+  364  docker run -d -p 8001:8000 6democratickim9/hello
+  365  docker container ls
+  366  clear
+  367  cat hello.js
+  368  vi hello.js
+  369  docker build -t 6democratickim9/hello .
+  370  docker images
+  371  docker system prune
+  372  docker images
+  373  docker rmi 898d1a
+  374  docker ps -a
+  375  docker ps -a | grep hello
+  376  clear
+  377  docker ps -a | grep hello
+  378  docker images
+  379  docker rm 898
+  380  docker rmi 898
+  381  cat hello.js
+  382  docker run -d -p 8001:
+  383  cat Dockerfile
+  384  clear
+  385  docker rmi 898
+  386  docker rmi -f 898
+  387  docker images
+  388  docker stop f48cad670bc9
+  389  docker container
+  390  docker container ls
+  391  docker images
+  392  docker run -d -p 8001:8000 6democratickim9/hello
+  393  docker run -d -p 8000:8000 6democratickim9/hello
+  394  docker images
+  395  clear
+  396  docker images
+  397  docker container ls
+  398  docker rm happy_banzai
+  399  docker stop happy_banzai
+  400  clear
+  401  docker rm happy_banzai
+  402  docker images
+  403  docker rmi    15 minutes ago   160MB
+  404  clear
+  405  docker rmi 898d1a32c1ff
+  406  docker images
+  407  cat hello.js
+  408  cat Dockerfile
+  409  docker container ls
+  410  docker run -d -p 8000:8000 6democratickim9/hello
+  411  docker run -d -p 8001:8000 6democratickim9/hello
+  412  docker container ls
+  413  clear
+  414  docker container ls
+  415  clear
+  416  docker ps -a | grep hello
+  417  docker push 6democratickim9/hello
+  418  vi my_hello_pod.yml
+  419  cat my_hello_pod.yml
+  420  kubctl --help
+  421  kubectl --help
+  422  kubectl apply -f my_hello_pod.yml
+  423  cat my_hello_pod.yml
+  424  kubectl pet pods
+  425  kubectl get pods
+  426  kubectl get all
+  427  clear
+  428  kubectl get all
+  429  kubectl get pod
+  430  kubectl get pod --namespace default
+  431  kubectl describe pod hello-pod
+  432  docker login
+  433  kubectl describe pod hello-pod
+  434  kubectl apply -f my_hello_pod.yml
+  435  kubectl describe pod hello-pod
+  436  clear
+  437  get pod
+  438  kubectl get pod
+  439  kubectl exec -it hello-pod /bin/bash
+  440  kubectl get pod
+  441  kubectl describe pod hello-pod
+  442  kubectl delete hello-pod
+  443  kubectl apply -f my_hello_pod.yml
+  444  kubectl get pods
+  445  kubectl delete -f my_hello_pod.yml
+  446  kubectl apply -f my_hello_pod.yml
+  447  kubectl get pods
+  448  kubectl describe pod hello-pod
+  449  docker login
+  450  clear
+  451  kubectl delete -f my_hello_pod.yml
+  452  kubectl apply -f my_hello_pod.yml
+  453  kubectl delete -f my_hello_pod.yml
+  454  docker login
+  455  kubectl apply -f my_hello_pod.yml
+  456  kubectl describe pod hello-pod
+  457  clear
+  458  kubectl describe pod hello-pod
+  459  clear
+  460  docker push 6democratickim9/hello
+  461  kubectl delete -f my_hello_pod.yml
+  462  docker login
+  463  kubectl describe pod hello-pod
+  464  kubectl apply -f my_hello_pod.yml
+  465  kubectl get pods
+  466  clear
+  467  kubectl describe pod hello-pod
+  468  kubectl get pods
+  469  curl -X GET http://127.0.0.1:8000
+  470  clear
+  471  exit
+  472  history
+  473  cd node_project
+  474  kubectl get pods
+  475  clear
+  476  kubectl get pods
+  477  apt-get update && apt-get install -y curl
+  478  docker exec -it hello-pod /bin/bash
+  479  docker container ls
+  480  docker exec -it 6democratickim9/hello  /bin/bash
+  481  docker exec -it b621d4b40b52  /bin/bash
+  482  kubectl get pods
+  483  kubectl exec -it hello-pod  /bin/bash
+  484  kubectl apply -f pod1.yml
+  485  kubectl get pods
+  486  history
+  487  cat hello.js
+  488  clear
+  489  history
+  490  clear
+  491  vi Dockerfile
+  492  ls -l
+  493  vi my_pod2.yml
+  494  kubectl apply -f my_pod2.yml
+  495  11
+  496  ll
+  497  clear
+  498  get pods
+  499  kubectl get pods
+  500  ubectl describe pod pod-1
+  501  kubectl describe pod pod-1
+  502  docker login
+  503  kubectl describe pod pod-1
+  504  kubectl get pods
+  505  clear
+  506  kubectl describe pod pod-1
+  507  clear
+  508  kubectl delete pod-1
+  509  kubectl delete pod/pod-1
+  510  kubectl apply -f my_pod2.yml
+  511  kubectl delete pod/pod-1
+  512  sd
+  513  docker login
+  514  kubectl apply -f my_pod2.yml
+  515  sd
+  516  docker login
+  517  clear
+  518  kubectl describe pod pod-1
+  519  docker login
+  520  kubectl describe pod pod-1
+  521  vi my_pod2.yml
+  522  kubectl describe pod pod-1
+  523  kubectl delete pod/pod-1
+  524  clear
+  525  kubectl apply -f my_pod2.yml
+  526  kubectl get pods
+  527  kubectl get pods -o wide
+  528  clear
+  529  kubectl describe pod pod-1
+  530  clear
+  531  history
+  532  clear
+  533  kubectl get pods
+  534  kubectl exec -it hello-pod /bin/bash
+  535  vi my_hello_svc.yml
+  536  kubectl apply -f my_hello_svc.yml
+  537  kubectl get services
+  538  curl -X GET http://127.0.0.1 31781
+  539  curl -X GET http://127.0.0.1:31781
+  540  curl -X GET http://127.0.0.1:8001
+  541  curl -X GET http://127.0.0.1:31781
+  542  cat my_hello_svc.yml
+  543  curl -X GET http://127.0.0.1:31781
+  544  history
