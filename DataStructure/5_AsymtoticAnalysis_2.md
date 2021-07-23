@@ -52,4 +52,8 @@ n이 n0보다 큰 시점으로부터 항상 f(n)은 둘 사이에 끼어 있는 
 
 - best case 러닝타임을 얘기한다.
 
-  
+
+## :four: o-Notation & Little Omega Notation
+
+- O Notation과 Omega Notation을 강화하기 위한 Notation
+
