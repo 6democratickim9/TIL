@@ -43,6 +43,8 @@
   - Java Virtual Machine
   - 자바 가상 기계
   - OS와 자바 프로그램과의 통역자 역할
+  - Garbage Collector
+    - 자동 메모리 관리
 
 JDK>JRE>JVM
 
@@ -96,7 +98,7 @@ JDK>JRE>JVM
 
 - 폭포수 모델 :man_playing_water_polo:
 
-  - 단계별 완료 후 다음 단계 수행, 애자일 모델 
+- 단계별 완료 후 다음 단계 수행, 애자일 모델 
 
   :arrow_right:반복, 점중
 
