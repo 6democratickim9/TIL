@@ -130,6 +130,5 @@ class Person extends Animal{
 
   
 
+![image-20210808231940742](KOSTA_0806.assets/image-20210808231940742.png)
 
-
-### Object  Casting
