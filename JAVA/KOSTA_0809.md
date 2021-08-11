@@ -86,8 +86,8 @@ public class TestPolymorphism2 {
 ## Object Casting
 
 - **객체 캐스팅, 형변환**
-- 부모 타입의 변수로 자식 객체를 참조할 경우
-- 접근 가능한 영역은 부모의 멤버, 오버라이드한 자식 객체의 메서드이다
+- 부모 타입의 변수로 **자식 객체를 참조**할 경우
+- 접근 가능한 영역은 **부모의 멤버, 오버라이드한 자식 객체의 메서드**이다
 - 만약 자식의 독자적 멤버(인스턴스 변수, 메서드)에 접근하여 사용하려고 할 경우에는
 - Object Casting(Object down casting)이 필요하다
 
@@ -107,6 +107,8 @@ p.study();
 ```
 
 ---------
+
+급 궁금해져서 찾아보는 민주의 혼자공부
 
 ## toString()
 
@@ -140,3 +142,97 @@ public class Engineer extends Employee{
 
 - ``return super.toString()+" skill:"+skill;``
   - ``toString()`` 오버라이딩 메소드를 통해 정보를 편하게 출력할 수 있음
+
+
+
+## 사용자 정의 자료형
+
+```java
+class Animal {
+}
+Animal cat;
+```
+
+:point_right: ``cat ``이라는 변수는 **``Animal`` 자료형 변수**
+
+- ``cat``이라는 변수에는**``Animal``자료형에 해당되는 값**만 담을 수 있다.
+
+  -----------
+
+  
+
+## 코드 복습하기
+
+<img src="KOSTA_0809.assets/image-20210810001238959.png" alt="image-20210810001238959" style="zoom:67%;" />
+
+![image-20210810002521887](KOSTA_0809.assets/image-20210810002521887.png)
+
+<img src="KOSTA_0809.assets/image-20210810004409453.png" alt="image-20210810004409453" style="zoom: 50%;" />
+
+```java
+package step3;
+// Object Casting 을 사용하는 예제 
+class Animal{
+	public void eat() {
+		System.out.println("먹다");
+	}
+	public void sleep() {
+		System.out.println("자다");
+	}
+}
+class Person extends Animal{
+	@Override
+	public void eat() {
+		System.out.println("사람이 수저로 먹다");
+	}
+	//자식의 독자적 멤버(메서드) 
+	public void study() {
+		System.out.println("사람이 공부하다");
+	}
+}
+public class TestPolymorphism4 {
+	public static void main(String[] args) {
+		Animal a=new Person();
+		a.sleep(); 
+		a.eat(); 
+		Person p=(Person)a;
+		p.study(); 
+	}
+}
+
+```
+
+- ``Animal a=new Person();``
+  - 다형성 : 부모 타입의 변수로 **자식 객체를 참조**시켜 본다
+
+- ``a.sleep();``
+  - 상속받은 멤버 , 접근 가능 
+- ``a.eat();``
+  - 오버라이딩한 메서드 , 접근 가능 
+
+- ``a.study();``
+
+  - 자식의 독자적 멤버(메서드)에`` p ``변수로 접근해본다. 이 경우 ``compile error``
+
+  - 이 경우 ``a`` 참조변수의 타입은 ``Animal`` 이기 때문 
+
+  - 아래와 같이 **Object Down Casting**을 하면 자식의 독자적 멤버에 접근할 수 있다 
+
+    ``((Person) a).study();``
+
+    - 위 코드를 풀어쓰면 아래와 같이 쓸 수도 있다 
+
+    - ```java
+      Person p=(Person)a;
+      p.study(); 
+      ```
+
+<img src="KOSTA_0809.assets/image-20210810005425093.png" alt="image-20210810005425093" style="zoom:67%;" />
+
+![image-20210810010214564](KOSTA_0809.assets/image-20210810010214564.png)
+
+<img src="KOSTA_0809.assets/image-20210810010538539.png" alt="image-20210810010538539" style="zoom:67%;" />
+
+<img src="KOSTA_0809.assets/image-20210810011405429.png" alt="image-20210810011405429" style="zoom:67%;" />
+
+![image-20210810012430459](KOSTA_0809.assets/image-20210810012430459.png)
