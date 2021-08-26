@@ -1,4 +1,6 @@
-Meta Space 영역: class 의 메타 데이터가 저장되는 영역
+## Meta Space 영역
+
+> class 의 **메타 데이터가 저장되는 영역**
 
 ```java
 package step1;
@@ -77,7 +79,53 @@ public class TestStatic2 {
 - ``System.out.println(name2);``
   - static member 이므로 **바로 접근 불가능**
 
+## 
 
+# static 
+
+> class 의 member ( variable , method )
+
+- 객체 생성없이 클래스 로딩만으로 메모리에 적재 ( meta space 영역에 저장 )
+
+- ``클래스명.member``
+
+  - ``클래스명.static변수``  or ``클래스명.static메서드``
+
+- ## Java Memory
+
+  - **Heap 영역** : 객체의 instance variable 이 저장되는 영역
+  - **Stack 영역** : local variable이 저장되는 영역 
+  - **Meta Space 영역** : ``class`` 의 meta data 가 저장되는 영역 , ``static member``가 저장 
+
+- ## Java Program 실행단계
+
+  1. compile 된 class 실행 
+
+  2. Class Loader가 Class Loading 
+
+     :point_right: meta space 에 class meta data 정보를 메모리에 적재( static )
+
+  3. class 검증단계
+
+  4. 실행단계
+
+     - ``main`` 실행
+
+     - 필요시 동적으로 객체 생성 
+
+       :point_right: **heap 영역에 객체 정보 저장 , stack 영역에 지역변수 저장** 
+
+- static 접근 관련 
+
+  ```j
+  non-static			static 
+    			----->	
+    		직접 접근 가능 
+    			<-----
+  직접 접근 불가 , 반드시 객체 생성을 필요로 한다
+  ```
+
+  
 
 
 

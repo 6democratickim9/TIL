@@ -71,9 +71,63 @@ class Person extends Animal{
 
 - 자식 객체 생성 시 자식 객체의 생성자 첫라인에 배치되는 ``super()`` 에 의해  **부모 -> 자식 순으로 객체가 생성**된다 
 
+-------------
+
+# 객체지향 주요 개념 
+
+- Encapsulation , Inheritance , Polymorphism 
+
+​    
+
+# Inheritance ( 상속 ) 
+
+- 부모(super class) 멤버(인스턴스 변수, 메서드)를 물려받아 **자식(sub class)이 재사용**
+- 계층 구조 형성을 통한 다형성(Polymorphism) 적용 환경 -> 이후 공부예정 
 
 
 
+## 1. ``is a relationship`` 
+
+- 사람은 동물이다.  개는 동물이다. 고양이는 동물이다. 매니저는 사원이다. 엔지니어는 사원이다. 비서는 사원이다. 
+
+  :point_right: **UML의 Class Diagram에서는 generalization으로 ``is a`` 관계를 표현한다**
+
+## 2. ``extends`` 
+
+- 상속받을 때 사용하는 자바 키워드
+
+  ```java
+  자식클래스(sub class) extends 부모클래스(super class)
+  public class Person extends Animal{}
+  ```
+
+## 3. ``protected Access Modifier`` 
+
+- 패키지 내에서 접근가능, 단 **상속관계에서는 다른 패키지에서 접근 가능** 
+  참고) ``public ``> ``protected ``> ``default`` > ``private ``
+
+## 4. ``super`` 
+- 부모를 가리키는 **자바 키워드(예약어)** 	
+
+- ``super.멤버`` ( 변수 및 메서드 ) 
+
+  :point_right: 부모의 멤버에 접근  	
+
+- ``super()``
+
+  :point_right: **부모 생성자를 호출해서 부모 객체를 생성**
+
+  - ``super()`` 는 **생성자 첫 라인에 위치**
+
+  - 부모 생성자를 호출하여 **부모 객체를 생성하게 한다** 
+
+  - 만약 명시하지 않으면 **자동으로 삽입**
+
+  - **자식 객체를 생성하면 부모 객체가 함께 생성**되어 메모리에 적재되고 이를 사용하게 될 수 있는 원리는 **생성자에 ``super()`` 가 적용되기 때문**이다 
+
+  - 자식 객체를 생성하면 자식 객체의 생성자 첫라인에 배치되는 ``super()`` 에 의해 **부모 :point_right: 자식 순으로 객체가 생성**된다 
+
+    ​	
 
 
 
