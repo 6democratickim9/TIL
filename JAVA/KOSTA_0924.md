@@ -10,15 +10,15 @@ Web Architecture
 
 <<interface>>
 
-- Servlet: 서블릿 인터페이스는 모든 서블릿(jsp 포함) implements 해야 하는 메서드를 정의한 인터페이스로 모든 서블릿과 jsp의 최상위 인터페이스
+- `Servlet`: 서블릿 인터페이스는 모든 서블릿(jsp 포함) implements 해야 하는 메서드를 정의한 인터페이스로 모든 서블릿과 jsp의 최상위 인터페이스
 
 <<abstract>>
 
-- GenericServlet: Servlet interface 를 implements하는 abstract class로, 프로토콜에 독립적인 abstract class임
+- `GenericServlet`: Servlet interface 를 implements하는 abstract class로, 프로토콜에 독립적인 abstract class임
 
   - 일반적으로 서블릿이 가져야 하는 메서드를 구현해 자식 클래스에게 물려주고 자식 차원에서 구현해야 하는 abstract method(service 메서드)를 정의하고 있음
 
-- HttpServlet: GenericServlet을 상속받는 클래스
+- `HttpServlet`: GenericServlet을 상속받는 클래스
 
   - Http Protocol에 특화된 서비스를 구현하는 데 유용한 기능을 제공한다
   - 일반적으로 web application개발시에는 이 클래스를 상속받아 개발함
@@ -38,7 +38,7 @@ Web Architecture
 
 - 서블릿의 라이프 사이클을 관리하는 주체는 WAS이다
 
-  - web.xml(Deployment Descriptor:웹어플리케이션 설정정보)를 로딩하고 서블릿 객체를 생성하고 
+  - `web.xml`(Deployment Descriptor:웹어플리케이션 설정정보)를 로딩하고 서블릿 객체를 생성하고 
 
     ``init()``,``service() ``->``doGet() ``or ``doPost()``, ``destroy()``를 실행하는 주체는 Web Container(Servlet Container)이다
 
@@ -58,9 +58,9 @@ Web Architecture
 
 ## ServletConfig 
 
-- 개별 서블릿의 설정 정보를 저장하는 객체 
+- 개별 서블릿의 **설정 정보를 저장하는 객체** 
 
-- 서블릿 당 하나 생성 
+- **서블릿 당 하나 생성** 
 
 - Web Container(Servlet Container) 에 의해 init 호출시점에 ServletConfig 객체가 주입된다 
 
@@ -70,11 +70,11 @@ Web Architecture
 
 ## ServletContext
 
-- 웹어플리케이션 내의 모든 서블릿과 jsp가 공유하는 자원 ( 필요시 정보를 set/get 할 수 있다 )
+- 웹어플리케이션 내의 **모든 서블릿과 jsp가 공유하는 자원** ( 필요시 정보를 set/get 할 수 있다 )
 
 - 웹어플리케이션 당 하나 생성
 
-- 웹어플리케이션 시작 시점에 생성되고 종료 직전에 소멸됨
+- 웹어플리케이션 시작 시점에 생성되고 **종료 직전에 소멸됨**
 
   ex) 회사 사내 인트라넷
 
