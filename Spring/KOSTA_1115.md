@@ -56,16 +56,19 @@
 
      - IOC/DI , AOP , MVC , Security , SpringBoot 등을 지원하고 MyBatis , JUnit 등과 같은 오픈 소스 프레임워크와의 통합을 지원한다 
 
-- `IOC` : Inversion Of Control , 제어의 반전(역행) , 역제어
+- `IOC` : Inversion Of Control 
 
+    -  제어의 반전(역행) , 역제어
     - 컴포넌트를 구성하는 **인스턴스 생성과 의존 관계 연결처리를 IOC 컨테이너에 위임** 
 
-- `DI` : Dependency Injection , 의존성 주입
+- `DI` : Dependency Injection 
 
+   - 의존성 주입
    - 필요로 하는 **의존대상(컴포넌트 or 객체 or bean)을 injection(주입)을 통해 확보**한다 
 
-- `DL` : Dependency Lookup , 의존성 검색 
+- `DL` : Dependency Lookup 
 
+   - 의존성 검색 
    - **필요로 하는 의존대상(컴포넌트 or 객체 or bean)을 lookup(검색)을 통해 확보**한다 	
 
 - IOC , DI , DL 의 목적 -> Loose Coupling (느슨한 결합도 ) 	
