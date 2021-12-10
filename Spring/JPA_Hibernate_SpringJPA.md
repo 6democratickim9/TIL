@@ -37,3 +37,14 @@ https://suhwan.dev/2019/02/24/jpa-vs-hibernate-vs-spring-data-jpa/
 
 <img src="JPA.assets/image-20211209235837783.png" alt="image-20211209235837783" style="zoom:67%;" />
 
+- `findBy(컬럼 이름)`
+
+  - 컬럼에서 키워드를 넣어 찾음
+  - 정확하게 키워드가 일치하는 데이터만 검색
+
+- `findBy(컬럼 이름)Containing`
+
+  - 컬럼에서 키워드가 포함된 것을 찾음
+  - 키워드가 포함된 모든 데이터 검색
+
+  
