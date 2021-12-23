@@ -13,6 +13,6 @@
 
 https://start.spring.io/
 
-![image-20211119150247631](C:\Users\MIN\TIL\inflearn_spring\SpringBoot.assets\image-20211119150247631.png)
+![image-20211119150247631](\inflearn_spring\SpringBoot.assets\image-20211119150247631.png)
 
 여기서 생성 후에 이클립스나 인텔리제이에서 작업하면 됨
