@@ -71,4 +71,4 @@ logging:
 
   :point_right: 이 변환 작업을 `Serialization`이라고 부른다
 
-- 
+  
