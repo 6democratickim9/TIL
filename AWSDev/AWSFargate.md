@@ -11,6 +11,8 @@
 - Fargate는 **지정된 리소스 요구 사항에 가장 근접하도록 컴퓨팅 크기를 조정**
 - Fargate를 사용하면 추가 서버를 사용하기 위해 **과도하게 프로비저닝하거나 관련 비용을 지불하지 않아도 됨**
 - AWS Fargate**는 [Amazon Elastic Container Service](https://aws.amazon.com/ko/ecs/?pg=ln&sec=hiw)(ECS) 및 [Amazon Elastic Kubernetes Service](https://aws.amazon.com/ko/eks/?pg=ln&sec=hiw)(EKS) 모두와 호환됨**
+- **서버리스 서비스인 AWS 람다와 EC2 기반의 ECS 컨테이너의 중간 쯤에 위치한 서비스**
+- 도커 컨테이너를 EC2 인스턴스 없이 독립적으로 실행
 
 ![image-20220124135850516](AWSFargate.assets/image-20220124135850516.png)
 
