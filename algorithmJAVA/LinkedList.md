@@ -18,3 +18,16 @@
 
 
 
+```
+addLast(ListNode node){
+	ListNode newtailPrev = new ListNode(100);
+	tailPrev.next = newtailPrev;
+	newtailPrev.next = tail;
+	
+}
+
+1. tail -> 10 -> 20 -> 30
+2. 100 -> 10 -> 20 -> 30
+3. tail -> 100 -> 10 -> 20 ->30
+```
+
