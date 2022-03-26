@@ -1,0 +1,17 @@
+1. while queue is not empty
+2. queue에서 element 1개 pop
+3. 노드에 대해 해야 할 작업 해야 함 -> 결과 array에 추가(문제마다 다름)
+4. element에 연결된 다른 노드 탐색
+4-1. visited 체크가 필요하면 체크 해주기 (island 문제에서는 섬인지 바다인지 체크했었음 -> 섬: 방문하지 않음)
+(BFS는 방문 여부를 모름)/ 트리는 visited 체크 안함 ->top-down 방식이기 떄문
+depth는 내가 insert 할 array
+list를 하나 추가해서 insert
+queue에 9/20을 넣는다
+queue에는 3을 제외한 9/20이 들어감
+이 경우에는 recursive 가 아님
+queue에는 depth가 포함된 트리 노드 타입이 들어가야 함
+
+clss TreeNodeDepth {
+    TreeNode node;
+    int depth;
+}
